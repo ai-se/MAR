@@ -10,6 +10,7 @@ Setting up MAR
     - We won't need the entire distribution. [Download](http://conda.pydata.org/miniconda.html) a Python 2.7 version & install a minimal version of anaconda.
   + Make sure you select add to PATH during install.
   + Next, navigate to MAR, and run `setup.bat`. This will install all the dependencies needed to run the tool.
+  + If the above does not work well. Remember you only need a Python 2.7 and three packages listed in `requirements.txt` installed.
 
 2. Running script:
   + Navigate to *MAR > src* and run `index.py`.
