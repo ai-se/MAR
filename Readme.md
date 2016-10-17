@@ -14,11 +14,11 @@ Setting up MAR
 2. Running script:
   + Navigate to *MAR > src* and run `index.py`.
   + If all is well, you'll be greeted by this:
-  ![](https://github.com/ai-se/how2readless/blob/master/MAR/tutorial/screenshots/run.png?raw=yes)
+  ![](https://github.com/ai-se/MAR/blob/master/tutorial/screenshots/run.png?raw=yes)
 
 4. The Interface:
   + Fire up your browser and go to [`http://localhost:5000/hello/`](http://localhost:5000/hello/). You'll see a page like below:
-  ![](https://github.com/ai-se/how2readless/blob/master/MAR/tutorial/screenshots/start.png?raw=yes)
+  ![](https://github.com/ai-se/MAR/blob/master/tutorial/screenshots/start.png?raw=yes)
     
 Use MAR
 -----
@@ -46,3 +46,6 @@ Use MAR
 
 5. Restart:
   + Click **Restart** button will give you a fresh start and loose all your previous effort on the current data.
+  
+6. Remember to click **Next** button:
+  + User data will be saved when and only when you hit **Next** button, so please don't forget to hit it before you want to stop reviewing.
