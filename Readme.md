@@ -1,0 +1,48 @@
+What is MAR?
+-----
+MAR stands for machine assisted reading, it is a tool to support primary study selection in systematic literature review.
+
+Setting up MAR
+-----
+
+1. Setting up Python:
+  + We use anaconda by continuum.io (see [Why?](https://www.continuum.io/why-anaconda))
+    - We won't need the entire distribution. [Download](http://conda.pydata.org/miniconda.html) a Python 2.7 version & install a minimal version of anaconda.
+  + Make sure you select add to PATH during install.
+  + Next, navigate to MAR, and run `setup.bat`. This will install all the dependencies needed to run the tool.
+
+2. Running script:
+  + Navigate to *MAR > src* and run `index.py`.
+  + If all is well, you'll be greeted by this:
+  ![](https://github.com/ai-se/how2readless/blob/master/MAR/tutorial/screenshots/run.png?raw=yes)
+
+4. The Interface:
+  + Fire up your browser and go to [`http://localhost:5000/hello/`](http://localhost:5000/hello/). You'll see a page like below:
+  ![](https://github.com/ai-se/how2readless/blob/master/MAR/tutorial/screenshots/start.png?raw=yes)
+    
+Use MAR
+-----
+
+1. Get data ready:
+  + Put your candidate list (a csv file) in *MAR > workspace > data*.
+  + The candidate list can be as the same format as the example file *MAR > workspace > data > Hall.csv* or a csv file exported from [IEEExplore](http://ieeexplore.ieee.org/).
+  
+2. Load the data:
+  + Click **Choose File** button to select your csv file in *MAR > workspace > data*. Wait a few seconds for the first time.
+  + Begin reviewing studies:
+    - choose from **Relevant**, **Irrelevant**, or **Undetermined** for each study and hit **Submit**.
+    - hit **Next** when you want a to review more.
+    - statistics are displayed as **Documents Coded: x/y (z)**, where **x** is the number of relevant studies retrieved, **y** is the number of studies reviewed, and **z** is the total number of candidate studies.
+    - when **x** is greater than or equal to 1, an SVM model will be trained after hitting **Next**.
+    - rather than **Random** sampling, you can now select **certain** or **uncertain** for reviewing studies. **certain** returns the studies that the model thinks are most possible to be relevant while **uncertain** returns the studies that model is least confident to classify.
+    - keep reviewing studies until you think most relevant ones have been retrieved.
+
+3. Plot the curve:
+  + Click **Plot** button will plot a **Relevant studies retrieved** vs. **Studies reviewed** curve.
+  + You can also find the figure in *MAR > src > static > image*.
+  
+4. Export csv:
+  + Click **Export** button will generate a csv file with your coding in *MAR > workspace > coded*.
+
+5. Restart:
+  + Click **Restart** button will give you a fresh start and loose all your previous effort on the current data.
