@@ -19,6 +19,7 @@ class MAR(object):
         self.filename=filename
         self.name=self.filename.split(".")[0]
         self.flag=True
+        self.hasLabel=True
         self.record={"x":[],"pos":[]}
         self.body={}
         try:
@@ -48,6 +49,7 @@ class MAR(object):
             ind = header.index("label")
             self.body["label"] = [c[ind] for c in content[1:]]
         except:
+            self.hasLabel=False
             self.body["label"] = ["unknown"] * (len(content) - 1)
         return
 

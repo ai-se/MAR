@@ -15,6 +15,9 @@ function load_receive(response) {
     if(response.flag){
         display_num_labeled(response);
         $("button").removeAttr('disabled');
+        if (!response.hasLabel){
+            $("#auto").attr('disabled',true);
+        }
         train_send()
     }
     else{
@@ -106,7 +109,7 @@ function labeling_send(what){
 
 function labeling_receive(response){
     
-    if(response!="none"){
+    if(response.flag){
         display_num_labeled(response);
     }  
     nextnode=current_node.nextSibling;
@@ -123,6 +126,34 @@ function labeling_receive(response){
         $("#displaydoc").html("Done! Hit Next Button for next batch.");
         document.getElementById("send_label").setAttribute("disabled","disabled");
     }  
+}
+
+function auto_review(){
+    var ids = {}
+    for (var i = 0; i < can.length; ++i){
+        ids[i]=can[i].id
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/auto",
+        async: true,
+        data: ids,
+        success: auto_receive
+    });
+}
+
+function auto_receive(response){
+    if(response.flag){
+        display_num_labeled(response);
+    }
+    var olnode=document.getElementById("learn_result");
+    while (olnode.firstChild) {
+        olnode.removeChild(olnode.firstChild);
+    }
+    document.getElementById("displaydoc_id").value = "none";
+    $("#displaydoc").html("Done! Hit Next Button for next batch.");
+    document.getElementById("send_label").setAttribute("disabled","disabled");
 }
 
 function train_send(){

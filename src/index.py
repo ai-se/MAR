@@ -27,7 +27,7 @@ def load():
     file=request.form['file']
     target=target.create(file)
     pos, neg, total = target.get_numbers()
-    return jsonify({"flag": target.flag, "pos": pos, "done": pos+neg, "total": total})
+    return jsonify({"hasLabel": target.hasLabel, "flag": target.flag, "pos": pos, "done": pos+neg, "total": total})
 
 @app.route('/export',methods=['POST'])
 def export():
@@ -51,13 +51,20 @@ def labeling():
     pos, neg, total = target.get_numbers()
     return jsonify({"flag": target.flag, "pos": pos, "done": pos + neg, "total": total})
 
+@app.route('/auto',methods=['POST'])
+def auto():
+    for id in request.form.values():
+        target.code(int(id),target.body["label"][int(id)])
+    pos, neg, total = target.get_numbers()
+    return jsonify({"flag": target.flag, "pos": pos, "done": pos + neg, "total": total})
+
 @app.route('/restart',methods=['POST'])
 def restart():
     global target
     os.remove("./memory/"+target.name+".pickle")
     target = target.create(target.filename)
     pos, neg, total = target.get_numbers()
-    return jsonify({"flag": target.flag, "pos": pos, "done": pos + neg, "total": total})
+    return jsonify({"hasLabel": target.hasLabel, "flag": target.flag, "pos": pos, "done": pos + neg, "total": total})
 
 @app.route('/train',methods=['POST'])
 def train():

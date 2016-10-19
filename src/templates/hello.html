@@ -10,12 +10,10 @@
 
     <div class="learn">
         <input type="file" id="myFile" onchange="handleFileSelect(this.files)"/>
-        <h3 id="num_labeled"> </h3>
-        <button onclick="plot_send()" disabled> Plot </button>
-        <button onclick="export_send()" disabled> Export </button>
-        <button onclick="restart_send()" disabled> Restart </button>
+
         <br/>
         <button onclick="train_send()" disabled> Next </button>
+        <button onclick="auto_review()" id="auto" disabled> Auto Review </button>
         <select id="view_options" name="view" style="float:right" onchange="view_selection(this)">
             <option id="random" value="random" onclick="view_random()" selected>Random</option>
             <option id="certain" value="certain" onclick="view_certain()" >Certain</option>
@@ -38,6 +36,10 @@
         </form>
     </div>
     <div class="image">
+        <h3 id="num_labeled"> </h3>
+        <button onclick="plot_send()" disabled> Plot </button>
+        <button onclick="export_send()" disabled> Export </button>
+        <button onclick="restart_send()" disabled> Restart </button>
         <img id="myImage" style="width:440px"/>
     </div>
 </body>
