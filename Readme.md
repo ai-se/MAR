@@ -29,24 +29,30 @@ Use MAR
   + The candidate list can be as the same format as the example file *MAR > workspace > data > Hall.csv* or a csv file exported from [IEEExplore](http://ieeexplore.ieee.org/).
   
 2. Load the data:
-  + Click **Choose File** button to select your csv file in *MAR > workspace > data*. Wait a few seconds for the first time.
-  + Begin reviewing studies:
-    - choose from **Relevant**, **Irrelevant**, or **Undetermined** for each study and hit **Submit**.
-    - hit **Next** when you want a to review more.
-    - statistics are displayed as **Documents Coded: x/y (z)**, where **x** is the number of relevant studies retrieved, **y** is the number of studies reviewed, and **z** is the total number of candidate studies.
-    - when **x** is greater than or equal to 1, an SVM model will be trained after hitting **Next**.
-    - rather than **Random** sampling, you can now select **certain** or **uncertain** for reviewing studies. **certain** returns the studies that the model thinks are most possible to be relevant while **uncertain** returns the studies that model is least confident to classify.
-    - keep reviewing studies until you think most relevant ones have been retrieved.
+  + Click **Choose File** button to select your csv file in *MAR > workspace > data*. Wait a few seconds for the first time. Once the data is successfully loaded, you will see the following:
+  ![](https://github.com/ai-se/MAR/blob/master/tutorial/screenshots/load.png?raw=yes)
+  
+3. Begin reviewing studies:
+  - choose from **Relevant**, **Irrelevant**, or **Undetermined** for each study and hit **Submit**.
+  - hit **Next** when you want a to review more.
+  - statistics are displayed as **Documents Coded: x/y (z)**, where **x** is the number of relevant studies retrieved, **y** is the number of studies reviewed, and **z** is the total number of candidate studies.
+  - when **x** is greater than or equal to 1, an SVM model will be trained after hitting **Next**.
+  - rather than **Random** sampling, you can now select **certain** or **uncertain** for reviewing studies. **certain** returns the studies that the model thinks are most possible to be relevant while **uncertain** returns the studies that model is least confident to classify.
+  - keep reviewing studies until you think most relevant ones have been retrieved.
+  
+4. Auto review:
+  + If your data contains true label, like Hall.csv does, another button called **Auto Review** will be enabled. By clicking it, it automatically labels all your current studies (depending on the selection **Random**, **certain** or **uncertain**).
 
-3. Plot the curve:
+4. Plot the curve:
   + Click **Plot** button will plot a **Relevant studies retrieved** vs. **Studies reviewed** curve.
   + You can also find the figure in *MAR > src > static > image*.
+  ![](https://github.com/ai-se/MAR/blob/master/tutorial/screenshots/plot.png?raw=yes)
   
-4. Export csv:
+5. Export csv:
   + Click **Export** button will generate a csv file with your coding in *MAR > workspace > coded*.
 
-5. Restart:
+6. Restart:
   + Click **Restart** button will give you a fresh start and loose all your previous effort on the current data.
   
-6. Remember to click **Next** button:
+7. Remember to click **Next** button:
   + User data will be saved when and only when you hit **Next** button, so please don't forget to hit it before you want to stop reviewing.
