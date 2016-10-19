@@ -55,6 +55,7 @@ function plot_send() {
 }
 
 function plot_receive(response) {
+
     $("#myImage").attr("src","/static/image/"+response.path);
 }
 
@@ -64,6 +65,7 @@ function initialization(){
     changed=false;
     learn_result={};
     can={};
+    $("#myImage").removeAttr("src")
 }
 
 
@@ -333,6 +335,7 @@ function restart_send(){
             data: {  },
             success: load_receive
         });
+        initialization();
     }    
 }
 

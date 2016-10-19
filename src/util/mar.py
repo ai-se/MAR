@@ -7,6 +7,7 @@ import csv
 from collections import Counter
 from sklearn import svm
 import matplotlib.pyplot as plt
+import time
 
 class MAR(object):
     def __init__(self):
@@ -168,12 +169,14 @@ class MAR(object):
         plt.rc('font', **font)
         paras = {'lines.linewidth': 5, 'legend.fontsize': 20, 'axes.labelsize': 30, 'legend.frameon': False,
                  'figure.autolayout': True, 'figure.figsize': (16, 8)}
+
         plt.rcParams.update(paras)
 
+        plt.figure()
         plt.plot(self.record['x'], self.record["pos"])
         plt.ylabel("Relevant Found")
         plt.xlabel("Documents Reviewed")
-        name=self.name + ".png"
+        name=self.name+ "_" + str(int(time.time()))+".png"
         plt.savefig("./static/image/" + name)
         return name
 
