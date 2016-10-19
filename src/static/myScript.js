@@ -172,6 +172,9 @@ function train_send(){
 function train_receive(response){
     learn_result=response;
     view_selection(document.getElementById("view_options"));
+    if(document.getElementById("auto_plot").checked){
+        plot_send()
+    }
 }
 
 function view_selection(what){
