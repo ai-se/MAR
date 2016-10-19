@@ -40,7 +40,9 @@ def export():
 
 @app.route('/plot',methods=['POST'])
 def plot():
-    os.system("rm ./static/image/*.png")
+    dir = "./static/image"
+    for file in os.listdir(dir):
+        os.remove(os.path.join(dir,file))
     name = target.plot()
     return jsonify({"path": name})
 
