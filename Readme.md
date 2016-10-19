@@ -45,6 +45,7 @@ Use MAR
 
 4. Plot the curve:
   + Click **Plot** button will plot a **Relevant studies retrieved** vs. **Studies reviewed** curve.
+  + Check **Auto Plot** so that every time you hit next, a curve will be automatically generated.
   + You can also find the figure in *MAR > src > static > image*.
   ![](https://github.com/ai-se/MAR/blob/master/tutorial/screenshots/plot.png?raw=yes)
   
