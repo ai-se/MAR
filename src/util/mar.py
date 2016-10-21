@@ -143,7 +143,7 @@ class MAR(object):
 
     ## Get random ##
     def random(self):
-        return np.random.choice(self.pool,size=self.step,replace=False)
+        return np.random.choice(self.pool,size=np.min((self.step,len(self.pool))),replace=False)
 
     ## Format ##
     def format(self,id,prob=[]):
