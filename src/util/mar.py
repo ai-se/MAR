@@ -23,6 +23,7 @@ class MAR(object):
         self.hasLabel=True
         self.record={"x":[],"pos":[]}
         self.body={}
+        self.est_num=0
         try:
             ## if model already exists, load it ##
             return self.load()
@@ -58,8 +59,13 @@ class MAR(object):
         total = len(self.body["code"])
         pos = Counter(self.body["code"])["yes"]
         neg = Counter(self.body["code"])["no"]
-        self.record['x'].append(int(pos+neg))
-        self.record['pos'].append(int(pos))
+        try:
+            tmp=self.record['x'][-1]
+        except:
+            tmp=-1
+        if int(pos+neg)>tmp:
+            self.record['x'].append(int(pos+neg))
+            self.record['pos'].append(int(pos))
         self.pool = np.where(self.body['code'] == "undetermined")[0]
         self.labeled = list(set(range(len(self.body['code']))) - set(self.pool))
         return pos, neg, total
@@ -121,6 +127,7 @@ class MAR(object):
             negs_sel = np.argsort(np.abs(train_dist))[::-1][:len(poses)]
             sample = poses.tolist() + negs[negs_sel].tolist()
             clf.fit(self.csr_mat[sample], self.body['code'][sample])
+            self.est_num=Counter(clf.predict(self.csr_mat[self.pool]))["yes"]
         uncertain_id, uncertain_prob = self.uncertain(clf)
         certain_id, certain_prob = self.certain(clf)
         return uncertain_id, uncertain_prob, certain_id, certain_prob
@@ -174,6 +181,16 @@ class MAR(object):
 
         plt.figure()
         plt.plot(self.record['x'], self.record["pos"])
+        ### estimation ####
+        if self.est_num>9:
+            interval=3
+            der = (self.record["pos"][-1]-self.record["pos"][-1-interval])/(self.record["x"][-1]-self.record["x"][-1-interval])
+            step=self.record["x"][-1]-self.record["x"][-2]
+            xx=np.array(range(int(self.est_num/step)+1))
+            yy=map(int,xx*step*der+self.record["pos"][-1])
+            xx=xx*step+self.record["x"][-1]
+            plt.plot(xx, yy, "-.")
+        ####################
         plt.ylabel("Relevant Found")
         plt.xlabel("Documents Reviewed")
         name=self.name+ "_" + str(int(time.time()))+".png"
