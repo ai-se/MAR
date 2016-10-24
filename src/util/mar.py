@@ -23,7 +23,8 @@ class MAR(object):
         self.hasLabel=True
         self.record={"x":[],"pos":[]}
         self.body={}
-        self.est_num=0
+        self.est_num=[]
+        self.lastprob=0
         try:
             ## if model already exists, load it ##
             return self.load()
@@ -127,7 +128,21 @@ class MAR(object):
             negs_sel = np.argsort(np.abs(train_dist))[::-1][:len(poses)]
             sample = poses.tolist() + negs[negs_sel].tolist()
             clf.fit(self.csr_mat[sample], self.body['code'][sample])
-            self.est_num=Counter(clf.predict(self.csr_mat[self.pool]))["yes"]
+            ## estimate ##
+            # self.est_num=Counter(clf.predict(self.csr_mat[self.pool]))["yes"]
+            pos_at = list(clf.classes_).index("yes")
+            tmp=np.sort([x for x in clf.predict_proba(self.csr_mat[self.pool])[:,pos_at] if x > 0.5])[::-1]
+            ind=0
+            sum_tmp=0
+            self.est_num=[]
+            while True:
+                tmp_x=tmp[ind*self.step:(ind+1)*self.step]
+                if len(tmp_x)==0:
+                    break
+                sum_tmp= sum_tmp+sum(tmp_x)
+                self.est_num.append(sum_tmp)
+                ind=ind+1
+            ##############
         uncertain_id, uncertain_prob = self.uncertain(clf)
         certain_id, certain_prob = self.certain(clf)
         return uncertain_id, uncertain_prob, certain_id, certain_prob
@@ -137,6 +152,10 @@ class MAR(object):
         pos_at = list(clf.classes_).index("yes")
         prob = clf.predict_proba(self.csr_mat[self.pool])[:,pos_at]
         order = np.argsort(prob)[::-1][:self.step]
+        try:
+            self.lastprob=np.array(prob)[order][-self.step]
+        except:
+            pass
         return np.array(self.pool)[order],np.array(prob)[order]
 
     ## Get uncertain ##
@@ -182,13 +201,13 @@ class MAR(object):
         plt.figure()
         plt.plot(self.record['x'], self.record["pos"])
         ### estimation ####
-        if self.est_num>9:
+        if len(self.est_num)>0:
             interval=3
             der = (self.record["pos"][-1]-self.record["pos"][-1-interval])/(self.record["x"][-1]-self.record["x"][-1-interval])
-            step=self.record["x"][-1]-self.record["x"][-2]
-            xx=np.array(range(int(self.est_num/step)+1))
-            yy=map(int,xx*step*der+self.record["pos"][-1])
-            xx=xx*step+self.record["x"][-1]
+            xx=np.array(range(len(self.est_num)+1))
+            yy=map(int,np.array(self.est_num)*der/self.lastprob+self.record["pos"][-1])
+            yy=[self.record["pos"][-1]]+list(yy)
+            xx=xx*self.step+self.record["x"][-1]
             plt.plot(xx, yy, "-.")
         ####################
         plt.ylabel("Relevant Found")
