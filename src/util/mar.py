@@ -122,7 +122,7 @@ class MAR(object):
         pos_at = list(clf.classes_).index("yes")
         prob = clf.predict_proba(self.csr_mat[self.pool])[:, pos_at]
         order = np.argsort(prob)[::-1]
-        tmp = [x for x in np.array(prob)[order] if x > 0.5]
+        tmp = [x for x in np.array(prob)[order] if x > self.offset]
         try:
             self.lastprob = np.array(prob)[order][self.step]
         except:
@@ -208,7 +208,7 @@ class MAR(object):
         fig = plt.figure()
         plt.plot(self.record['x'], self.record["pos"])
         ### estimation ####
-        if len(self.est_num)>0:
+        if len(self.est_num)>0 and self.lastprob>self.offset:
             interval=3
             der = (self.record["pos"][-1]-self.record["pos"][-1-interval])/(self.record["x"][-1]-self.record["x"][-1-interval])
             xx=np.array(range(len(self.est_num)+1))
