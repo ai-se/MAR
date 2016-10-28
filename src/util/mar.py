@@ -26,6 +26,9 @@ class MAR(object):
         self.est_num=[]
         self.lastprob=0
         self.offset=0.5
+        self.interval=3
+        self.buffer=[]
+
         try:
             ## if model already exists, load it ##
             return self.load()
@@ -123,10 +126,7 @@ class MAR(object):
         prob = clf.predict_proba(self.csr_mat[self.pool])[:, pos_at]
         order = np.argsort(prob)[::-1]
         tmp = [x for x in np.array(prob)[order] if x > self.offset]
-        try:
-            self.lastprob = np.array(prob)[order][self.step]
-        except:
-            pass
+
         ind = 0
         sum_tmp = 0
         self.est_num = []
@@ -138,6 +138,11 @@ class MAR(object):
             self.est_num.append(sum_tmp)
             ind = ind + 1
             ##############
+        try:
+            self.lastprob = np.mean(clf.predict_proba(self.csr_mat[self.buffer])[:,pos_at])
+            # self.lastprob = np.mean(np.array(prob)[order][:self.step])
+        except:
+            pass
 
     ## Train model ##
     def train(self):
@@ -191,6 +196,8 @@ class MAR(object):
 
     ## Code candidate studies ##
     def code(self,id,label):
+        self.buffer.append(id)
+        self.buffer=self.buffer[-self.step * self.interval:]
         self.body["code"][id]=label
 
     ## Plot ##
@@ -209,8 +216,7 @@ class MAR(object):
         plt.plot(self.record['x'], self.record["pos"])
         ### estimation ####
         if len(self.est_num)>0 and self.lastprob>self.offset:
-            interval=3
-            der = (self.record["pos"][-1]-self.record["pos"][-1-interval])/(self.record["x"][-1]-self.record["x"][-1-interval])
+            der = (self.record["pos"][-1]-self.record["pos"][-1-self.interval])/(self.record["x"][-1]-self.record["x"][-1-self.interval])
             xx=np.array(range(len(self.est_num)+1))
             yy=map(int,np.array(self.est_num)*der/(self.lastprob-self.offset)+self.record["pos"][-1])
             # yy = map(int, np.array(self.est_num) + (der - self.lastprob)*xx[1:]*self.step + self.record["pos"][-1])
