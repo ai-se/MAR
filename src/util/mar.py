@@ -61,7 +61,7 @@ class MAR(object):
             self.body["label"] = ["unknown"] * (len(content) - 1)
         try:
             ind = header.index("code")
-            self.body["code"] = [c[ind] for c in content[1:]]
+            self.body["code"] = np.array([c[ind] for c in content[1:]])
         except:
             self.body["code"]=np.array(['undetermined']*(len(content) - 1))
         return
