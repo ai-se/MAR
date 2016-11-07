@@ -59,6 +59,11 @@ class MAR(object):
         except:
             self.hasLabel=False
             self.body["label"] = ["unknown"] * (len(content) - 1)
+        try:
+            ind = header.index("code")
+            self.body["code"] = [c[ind] for c in content[1:]]
+        except:
+            self.body["code"]=np.array(['undetermined']*(len(content) - 1))
         return
 
     def get_numbers(self):
@@ -105,8 +110,6 @@ class MAR(object):
                         vocabulary=self.voc)
         self.csr_mat=tfer.fit_transform(content)
         ########################################################
-        num=self.csr_mat.shape[0]
-        self.body["code"]=np.array(['undetermined']*num)
         return
 
     ## save model ##
