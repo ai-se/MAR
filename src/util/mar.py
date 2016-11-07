@@ -8,6 +8,7 @@ from collections import Counter
 from sklearn import svm
 import matplotlib.pyplot as plt
 import time
+import os
 
 class MAR(object):
     def __init__(self):
@@ -230,4 +231,6 @@ class MAR(object):
         plt.savefig("./static/image/" + name)
         plt.close(fig)
         return name
+
+
 
