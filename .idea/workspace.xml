@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d24b61d8-a861-4d1f-a6d1-049692f7163c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/static/image/Hall_1479937134.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/workspace/coded/Hall.csv" afterPath="$PROJECT_DIR$/workspace/coded/Hall.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/memory/Hall.pickle" afterPath="$PROJECT_DIR$/src/memory/Hall.pickle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="d24b61d8-a861-4d1f-a6d1-049692f7163c" name="Default" comment="" />
     <ignored path="MAR.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
