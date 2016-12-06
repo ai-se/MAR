@@ -57,3 +57,9 @@ Use MAR
   
 7. Remember to click **Next** button:
   + User data will be saved when and only when you hit **Next** button, so please don't forget to hit it before you want to stop reviewing.
+  
+Version Logs
+-----
+Dec 5, 2016. v1.0.0 The very first, basic version is released.
+
+Dec 6, 2016. v1.0.1 Add one feature under testing, which can predict when the review process should stop.
