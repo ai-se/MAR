@@ -60,6 +60,6 @@ Use MAR
   
 Version Logs
 -----
-Dec 5, 2016. v1.0.0 The very first, basic version is released.
+Dec 5, 2016. **v1.0.0** The very first, basic version is released.
 
-Dec 6, 2016. v1.0.1 Add one feature under testing, which can predict when the review process should stop.
+Dec 6, 2016. **v1.0.1** Add one feature under testing, which can predict when the review process should stop.
