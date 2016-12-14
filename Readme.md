@@ -2,14 +2,10 @@ What is MAR?
 -----
 MAR stands for machine assisted reading, it is a tool to support primary study selection in systematic literature review.
 
-Latest Version
------
-On Github repo: [https://github.com/ai-se/MAR](https://github.com/ai-se/MAR).
+Latest Versions:
 
-Zenodo Doi in SeaCraft
------
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.203136.svg)](https://doi.org/10.5281/zenodo.203136)
+- On Github repo: [https://github.com/ai-se/MAR](https://github.com/ai-se/MAR).
+- In the Seacraft repository: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.203136.svg)](https://doi.org/10.5281/zenodo.203136)
 
 Setting up MAR
 -----
