@@ -8,7 +8,8 @@ On Github repo: [https://github.com/ai-se/MAR](https://github.com/ai-se/MAR).
 
 Zenodo Doi in SeaCraft
 -----
-[https://doi.org/10.5281/zenodo.203136](https://doi.org/10.5281/zenodo.203136)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.203136.svg)](https://doi.org/10.5281/zenodo.203136)
 
 Setting up MAR
 -----
