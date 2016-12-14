@@ -7,6 +7,18 @@ Latest Versions:
 - On Github repo: [https://github.com/ai-se/MAR](https://github.com/ai-se/MAR).
 - In the Seacraft repository: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.203136.svg)](https://doi.org/10.5281/zenodo.203136)
 
+Cite as:
+
+```bibtex
+@misc{zhe yu_2016, 
+      title={ai-se/MAR: MAR v1.0.2}, DOI={10.5281/zenodo.203136}, 
+      publisher={Zenodo}, 
+      author={Zhe Yu}, 
+      year={2016}, 
+      month={Dec}
+}
+```
+
 Setting up MAR
 -----
 
