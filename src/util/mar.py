@@ -28,7 +28,6 @@ class MAR(object):
         self.lastprob=0
         self.offset=0.5
         self.interval=3
-        self.buffer=[]
 
         try:
             ## if model already exists, load it ##
@@ -64,6 +63,11 @@ class MAR(object):
             self.body["code"] = np.array([c[ind] for c in content[1:]])
         except:
             self.body["code"]=np.array(['undetermined']*(len(content) - 1))
+        try:
+            ind = header.index("time")
+            self.body["time"] = np.array([c[ind] for c in content[1:]])
+        except:
+            self.body["time"]=np.array([0]*(len(content) - 1))
         return
 
     def get_numbers(self):
@@ -82,11 +86,17 @@ class MAR(object):
         return pos, neg, total
 
     def export(self):
-        fields = ["Document Title", "Abstract", "Year", "PDF Link", "label", "code"]
+        fields = ["Document Title", "Abstract", "Year", "PDF Link", "label", "code","time"]
         with open("../workspace/coded/" + str(self.name) + ".csv", "wb") as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',')
             csvwriter.writerow(fields)
-            for ind in xrange(len(self.body["code"])):
+            ## sort before export
+            time_order = np.argsort(self.body["time"])[::-1]
+            yes = [c for c in time_order if self.body["code"][c]=="yes"]
+            no = [c for c in time_order if self.body["code"][c] == "no"]
+            und = [c for c in time_order if self.body["code"][c] == "undetermined"]
+            ##
+            for ind in yes+no+und:
                 csvwriter.writerow([self.body[field][ind] for field in fields])
         return
 
@@ -143,7 +153,8 @@ class MAR(object):
             ind = ind + 1
             ##############
         try:
-            self.lastprob = np.mean(clf.predict_proba(self.csr_mat[self.buffer])[:,pos_at])
+            past = np.argsort(self.body["time"])[::-1][:self.interval * self.step]
+            self.lastprob = np.mean(clf.predict_proba(self.csr_mat[past])[:,pos_at])
             # self.lastprob = np.mean(np.array(prob)[order][:self.step])
         except:
             pass
@@ -200,9 +211,8 @@ class MAR(object):
 
     ## Code candidate studies ##
     def code(self,id,label):
-        self.buffer.append(id)
-        self.buffer=self.buffer[-self.step * self.interval:]
-        self.body["code"][id]=label
+        self.body["code"][id] = label
+        self.body["time"][id] = time.time()
 
     ## Plot ##
     def plot(self):
