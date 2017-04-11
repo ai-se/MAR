@@ -79,8 +79,10 @@ def train():
         res["certain"] = target.format(certain_id,certain_prob)
         res["uncertain"] = target.format(uncertain_id, uncertain_prob)
     target.save()
-    return jsonify(res)
-
+    # return jsonify(res)
+    ress=json.dumps(res,ensure_ascii=False)
+    response = Response(ress,content_type="application/json; charset=utf-8" )
+    return response
 
 
 
